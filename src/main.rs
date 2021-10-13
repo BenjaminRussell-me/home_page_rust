@@ -10,6 +10,7 @@ fn rocket() -> _ {
     rocket::build()
         .attach(Template::fairing())
         .mount("/", routes![index])
+        .mount("/", routes![thoughts])
         .mount("/css", FileServer::from(relative!("assets/css")))
 }
 
@@ -17,8 +18,20 @@ fn rocket() -> _ {
 fn index() -> Template {
         let context: HashMap<&str, &str> = [
             ("name", "Benjamin"),
-            ("other", "tada")
+            ("other", "tada"),
+            ("page", "test")
         ]
         .iter().cloned().collect();
         Template::render("index", context)
+}
+
+#[get("/thoughts")]
+fn thoughts() -> Template {
+        let context: HashMap<&str, &str> = [
+            ("name", "Benjamin"),
+            ("other", "tada"),
+            ("page", "test")
+        ]
+        .iter().cloned().collect();
+        Template::render("thoughts", context)
 }
